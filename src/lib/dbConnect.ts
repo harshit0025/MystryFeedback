@@ -17,9 +17,7 @@ async function dbConnect(): Promise<void> {
     }
     try{
         const db = await mongoose.connect(process.env.MONGODB_URI || '');
-        console.log(db);
-        console.log(connection);
-        
+        // console.log(db);
         
         //ready state h..apne aap m ek number hota hai
         connection.isConnected = db.connections[0].readyState
@@ -30,7 +28,7 @@ async function dbConnect(): Promise<void> {
         console.log("DB Connection failed", err);
         
         //Agar connection bana hi nhi...to process ko gracefully exit krdo
-        process.exit();
+        process.exit(1);
     }
 }
 

@@ -13,11 +13,11 @@ export async function sendVerificationEmail(
         await resend.emails.send({
             from: 'onboarding@resend.dev',
             to: email,
-            subject: 'Mystery Message | Verification Code',
+            subject: 'Mystry Message | Verification Code',
             //React Component bhejna padega ki kya display karana hai
             react: VerificationEmail({username, otp: verifyCode})
         })
-        return {success: false, message: 'Verification email sent successfully'}
+        return {success: true, message: 'Verification email sent successfully'}
 
     } catch (emailError) {
         console.error("Error sending verification email", emailError)

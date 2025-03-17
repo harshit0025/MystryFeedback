@@ -1,11 +1,13 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User";
 import bcrypt from "bcryptjs";
+// import { ApiResponse } from "@/types/ApiResponse";
+//ApiResponse bhi use kr skte the...humne normal Response use kiya hua h
 
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 
 
-export async function POST (request: Request){
+export async function POST(request: Request): Promise<Response>{
     await dbConnect();
 
     try {

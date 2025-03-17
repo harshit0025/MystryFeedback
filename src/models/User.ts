@@ -1,7 +1,6 @@
 import mongoose, {Schema, Document} from "mongoose";
 
 
-//Message ka type h interface
 export interface Message extends Document{
     content: string;
     createdAt: Date
@@ -33,7 +32,7 @@ export interface User extends Document{
 const UserSchema: Schema<User> = new Schema({
     username: {
         type: String,
-        required: [true, "Username is required"],
+        required: [true, "Username is required"], //For custom message if not true
         trim: true,
         unique: true
     },
@@ -41,7 +40,7 @@ const UserSchema: Schema<User> = new Schema({
         type: String,
         required: [true, "Email is required"],
         unique: true,
-        match: [/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/, 'Please use a valid email address']
+        match: [/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/, 'Please use a valid email address'] //To test if email is valid
     },
     password : {
         type: String,
@@ -66,6 +65,9 @@ const UserSchema: Schema<User> = new Schema({
     messages: [MessageSchema]
 })
 
+
+//Next.js mei baar baar server run hota hai
+//HO sakta h pehle se bana hua ho database, aur nhi bana ho toh naya create krdo
 const UserModel = (mongoose.models.User as mongoose.Model<User>) || mongoose.model<User>("User", UserSchema)
 
 export default UserModel;

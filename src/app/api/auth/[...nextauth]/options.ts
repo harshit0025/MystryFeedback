@@ -51,6 +51,10 @@ export const authOptions: NextAuthOptions = {
             }
             return session;
         },
+        //hum token aur session ko thoda powerful banana chah rhe h
+        //mara return hua h provide se. Toh baar baar database queries na krni pade,
+        //hum token me hi user ka data store kr skte h aur
+        //session me bhi store kr skte h. Toh jab bhi hume user ka data chahiye hoga toh hum token ya session se hi fetch kr lenge.
         async jwt({ token, user }){
             if(user){
                 token._id = user._id?.toString();
