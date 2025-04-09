@@ -39,7 +39,7 @@ export async function GET(request: Request){
         }
         return Response.json({
             success: true,
-            message: "Username is unique",
+            message: "Username available",
         }, { status: 200 }) 
 
     } catch (error) {

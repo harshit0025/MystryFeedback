@@ -42,6 +42,8 @@ export async function POST(request: Request){
         }
 
     } catch (error) {
+        console.error(error);
+        
         console.error("Error verifying user")
         return Response.json({
             success: false,

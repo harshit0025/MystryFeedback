@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
                         $or: [
                             {email: credentials.identifier},
                             {username: credentials.identifier}
-                        ]
+                        ],
                     })
                     if(!user){
                         throw new Error('No user found with this email');
@@ -36,12 +36,26 @@ export const authOptions: NextAuthOptions = {
                     }
 
                 } catch (err: any) {
+                    // console.log(err.message);
+                    
                     throw new Error(err);
+                    
                 }
             }
         })
     ],
     callbacks: {
+
+        async jwt({ token, user }){
+            if(user){
+                token._id = user._id?.toString();
+                token.isVerified = user.isVerified;
+                token.isAcceptingMessage = user.isAcceptingMessage;
+                token.username = user.username;
+            }
+
+            return token;
+        },
         async session({ session, token }){
             if(token){
                 session.user._id = token._id;
@@ -55,16 +69,7 @@ export const authOptions: NextAuthOptions = {
         //mara return hua h provide se. Toh baar baar database queries na krni pade,
         //hum token me hi user ka data store kr skte h aur
         //session me bhi store kr skte h. Toh jab bhi hume user ka data chahiye hoga toh hum token ya session se hi fetch kr lenge.
-        async jwt({ token, user }){
-            if(user){
-                token._id = user._id?.toString();
-                token.isVerified = user.isVerified;
-                token.isAcceptingMessage = user.isAcceptingMessage;
-                token.username = user.username;
-            }
-
-            return token;
-        }
+        
     },
     pages: {
         signIn: '/sign-in'
